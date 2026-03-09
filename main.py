@@ -95,4 +95,17 @@ def sqrt(a: float):
     """
     return {"result": math.sqrt(a)}
 
-from typing import Optional
+@app.get("/average/{a}{b}", status_code=200)
+def average(a: float, b: float):
+    """
+    Calculates the average of two numbers.
+    
+    Parameters:
+    - a: First number
+    - b: Second number
+    
+    Returns:
+    - JSON object with the result
+    """
+    return {"result": (a+b)/2}
+
