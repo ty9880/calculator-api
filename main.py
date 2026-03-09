@@ -31,7 +31,7 @@ def add(a: str, b: str):
 
 
 @app.get("/subtract/{a}/{b}", status_code=200)
-def add(a: float, b: float):
+def add(a: str, b: str):
     """
     Subtracting two numbers together.
     
@@ -42,10 +42,15 @@ def add(a: float, b: float):
     Returns:
     - JSON object with the result
     """
+    try:
+        a = float(a)
+        b = float(b)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Both 'a' and 'b' must be valid numbers")
     return {"result": a - b}
 
 @app.get("/multiply/{a}/{b}", status_code=200)
-def add(a: float, b: float):
+def add(a: str, b: str):
     """
     Multiplying two numbers together.
     
@@ -56,10 +61,15 @@ def add(a: float, b: float):
     Returns:
     - JSON object with the result
     """
+    try:
+        a = float(a)
+        b = float(b)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Both 'a' and 'b' must be valid numbers")
     return {"result": a * b}
 
 @app.get("/divide/{a}/{b}", status_code=200)
-def add(a: float, b: float):
+def add(a: str, b: str):
     """
     Dividing two numbers together.
     
@@ -70,10 +80,20 @@ def add(a: float, b: float):
     Returns:
     - JSON object with the result
     """
+    try:
+        a = float(a)
+        b = float(b)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Both 'a' and 'b' must be valid numbers")
+    try:
+        a / b
+    except ZeroDivisionError: 
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Cannot divide by zero")
     return {"result": a / b}
 
+
 @app.get("/power/{a}/{b}", status_code=200)
-def add(a: float, b: float):
+def add(a: str, b: str):
     """
     Raises a number to a power.
     
@@ -84,11 +104,16 @@ def add(a: float, b: float):
     Returns:
     - JSON object with the result
     """
+    try:
+        a = float(a)
+        b = float(b)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Both 'a' and 'b' must be valid numbers")
     return {"result": a ** b}
 
 
 @app.get("/sqrt/{a}", status_code=200)
-def sqrt(a: float):
+def sqrt(a: str):
     """
     Calculates the square root of a number.
     
@@ -98,11 +123,20 @@ def sqrt(a: float):
     Returns:
     - JSON object with the result
     """
+    try:
+        a = float(a)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="'a' must be valid number")
+    try:
+        if a <= 0:
+            raise ValueError
+    except ValueError: 
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="'a' must be a positive number")
     return {"result": math.sqrt(a)}
 
 
 @app.get("/average/{a}/{b}/{c}", status_code=200)
-def average(a: float, b: float, c: float):
+def average(a: str, b: str, c: str):
     """
     Calculates the average of two numbers.
     
@@ -114,4 +148,10 @@ def average(a: float, b: float, c: float):
     Returns:
     - JSON object with the result
     """
+    try:
+        a = float(a)
+        b = float(b)
+        c = float(c)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="'a', 'b', and 'c' must be valid numbers")
     return {"result": (a+b+c) / 3}
