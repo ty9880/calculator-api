@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status
+from fastapi import FastAPI, status, HTTPException
 import math
 
 app = FastAPI()
@@ -11,7 +11,7 @@ def read_root():
 
 
 @app.get("/add/{a}/{b}", status_code=200)
-def add(a: float, b: float):
+def add(a: str, b: str):
     """
     Add two numbers together.
     
