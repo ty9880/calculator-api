@@ -22,6 +22,11 @@ def add(a: float, b: float):
     Returns:
     - JSON object with the result
     """
+    try:
+        a = float(a)
+        b = float(b)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Both 'a' and 'b' must be valid numbers")
     return {"result": a + b}
 
 
@@ -96,16 +101,17 @@ def sqrt(a: float):
     return {"result": math.sqrt(a)}
 
 
-@app.get("/average/{a}/{b}", status_code=200)
-def average(a: float, b: float):
+@app.get("/average/{a}/{b}/{c}", status_code=200)
+def average(a: float, b: float, c: float):
     """
     Calculates the average of two numbers.
     
     Parameters:
     - a: First number
     - b: Second number
+    - c: Third number
     
     Returns:
     - JSON object with the result
     """
-    return {"result": (a+b) / 2}
+    return {"result": (a+b+c) / 3}
