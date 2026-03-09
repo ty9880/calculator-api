@@ -95,10 +95,10 @@ def sqrt(a: float):
     """
     return {"result": math.sqrt(a)}
 
-@app.get("/max/{a}/{b}", status_code=200)
-def maximum(a: float, b: float):
+@app.get("/average/{a}/{b}", status_code=200)
+def average(a: float, b: float):
     """
-    Returns the maximum of two numbers.
+    Calculates the average of two numbers.
     
     Parameters:
     - a: First number
@@ -107,4 +107,4 @@ def maximum(a: float, b: float):
     Returns:
     - JSON object with the result
     """
-    return {"result": max(a, b)}
+    return {"result": (a + b) / 2}
